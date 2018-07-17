@@ -21,6 +21,8 @@ public class ManagersController {
 
     private void setupEndpoints(){
 
+
+        // READ
         get("/managers", (req, res) -> { // get verb, set to /managers route with request & response
             Map<String, Object> model = new HashMap(); // creating new hashmap with string and object key/value
             model.put("template", "templates/managers/index.vtl"); // put
@@ -33,9 +35,7 @@ public class ManagersController {
 
         }, new VelocityTemplateEngine());
 
-
-
-
+        // CREATE
         get("/managers/new", (req, res) -> {
             HashMap<String, Object> model = new HashMap();
 
@@ -47,9 +47,7 @@ public class ManagersController {
 
         }, new VelocityTemplateEngine());
 
-
-
-
+        // CREATE
         post("/managers", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             String firstName = req.queryParams("first-name");
@@ -66,6 +64,24 @@ public class ManagersController {
             return null;
 
         }, new VelocityTemplateEngine());
+
+        // DELETE
+
+        post("/managers/:id/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("template", "templates/managers/index.vtl");
+
+
+        }, new VelocityTemplateEngine());
+
+//        #DELETE
+//        post '/notes/:id/delete' do
+//            note = Note.find(params[:id])
+//        note.delete()
+//        redirect to '/planner/new'
+//        end
+
+
 
     }
 
