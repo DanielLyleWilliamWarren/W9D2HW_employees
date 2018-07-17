@@ -81,12 +81,11 @@ public class ManagersController {
         get("/managers/:id/edit",(req, res) -> {
             HashMap<String, Object> model = new HashMap();
 
-            List<Department> departments = DBHelper.getAll(Department.class);
+            List<Department> department = DBHelper.getAll(Department.class);
             int id = Integer.parseInt(req.params(":id"));
             Manager manager = DBHelper.find(id, Manager.class);
-            model.put("managers", manager);
-            model.put("departments", departments);
-
+            model.put("manager", manager);
+            model.put("department", department);
             model.put("template", "templates/managers/edit.vtl");
             return new ModelAndView(model, "templates/layout.vtl");
 
@@ -101,7 +100,8 @@ public class ManagersController {
             int departmentId = Integer.parseInt(req.queryParams("department"));
             Department department = DBHelper.find(departmentId, Department.class);
 
-            Manager manager = new Manager(firstName, lastName, salary, department, budget);
+            int id = Integer.parseInt(req.params(":id"));
+            Manager manager = DBHelper.find(id, Manager.class);
             manager.setFirstName(firstName);
             manager.setLastName(lastName);
             manager.setSalary(salary);
