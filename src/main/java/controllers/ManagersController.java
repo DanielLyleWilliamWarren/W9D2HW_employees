@@ -76,14 +76,42 @@ public class ManagersController {
             return null;
         }, new VelocityTemplateEngine());
 
-//        #DELETE
-//        post '/notes/:id/delete' do
-//            note = Note.find(params[:id])
-//        note.delete()
-//        redirect to '/planner/new'
-//        end
 
+        // UPDATE
+        get("/managers/:id/edit",(req, res) -> {
+            HashMap<String, Object> model = new HashMap();
 
+            List<Department> departments = DBHelper.getAll(Department.class);
+            int id = Integer.parseInt(req.params(":id"));
+            Manager manager = DBHelper.find(id, Manager.class);
+            model.put("managers", manager);
+            model.put("departments", departments);
+
+            model.put("template", "templates/managers/edit.vtl");
+            return new ModelAndView(model, "templates/layout.vtl");
+
+        }, new VelocityTemplateEngine());
+
+        post("managers/:id",(req, res) ->{
+            Map<String, Object> model = new HashMap<>();
+            String firstName = req.queryParams("first-name");
+            String lastName = req.queryParams("last-name");
+            int salary = Integer.parseInt(req.queryParams("salary"));
+            double budget = Double.parseDouble(req.queryParams("budget"));
+            int departmentId = Integer.parseInt(req.queryParams("department"));
+            Department department = DBHelper.find(departmentId, Department.class);
+
+            Manager manager = new Manager(firstName, lastName, salary, department, budget);
+            manager.setFirstName(firstName);
+            manager.setLastName(lastName);
+            manager.setSalary(salary);
+            manager.setBudget(budget);
+            manager.setDepartment(department);
+            DBHelper.update(manager);
+
+            res.redirect("/managers");
+            return null;
+        }, new VelocityTemplateEngine());
 
     }
 

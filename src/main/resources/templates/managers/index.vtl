@@ -29,7 +29,11 @@
             <td>$manager.getBudget()</td>
             <td><form method="post" action="/managers/$manager.getId()/delete">
                 <input type="submit" value="delete"/>
-            </form></td>
+            </form>
+            </td>
+            <td>
+                <a href="/managers/$manager.getId()/edit">Edit Manager</a>
+            </td>
         </tr>
         #end
 
