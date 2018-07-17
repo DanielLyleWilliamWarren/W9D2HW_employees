@@ -85,7 +85,7 @@ public class ManagersController {
             int id = Integer.parseInt(req.params(":id"));
             Manager manager = DBHelper.find(id, Manager.class);
             model.put("manager", manager);
-            model.put("department", department);
+            model.put("departments", department);
             model.put("template", "templates/managers/edit.vtl");
             return new ModelAndView(model, "templates/layout.vtl");
 
