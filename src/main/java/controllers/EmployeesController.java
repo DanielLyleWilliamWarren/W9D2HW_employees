@@ -19,6 +19,7 @@ public class EmployeesController {
         Seeds.seedData();
 
         ManagersController managersController = new ManagersController();
+        EngineersController engineersController = new EngineersController();
 
 
         get("/employees", (req, res) -> {
