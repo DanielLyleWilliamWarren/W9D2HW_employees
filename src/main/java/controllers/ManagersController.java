@@ -47,6 +47,7 @@ public class ManagersController {
 
         }, new VelocityTemplateEngine());
 
+
         // CREATE
         post("/managers", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
@@ -65,13 +66,14 @@ public class ManagersController {
 
         }, new VelocityTemplateEngine());
 
+
         // DELETE
-
         post("/managers/:id/delete", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            model.put("template", "templates/managers/index.vtl");
-
-
+            int id = Integer.parseInt(req.params(":id"));
+            Manager manager = DBHelper.find(id, Manager.class);
+            DBHelper.delete(manager);
+            res.redirect("/managers");
+            return null;
         }, new VelocityTemplateEngine());
 
 //        #DELETE

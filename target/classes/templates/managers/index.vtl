@@ -9,6 +9,8 @@
 <br>
 
 <div class="container">
+
+
     <table>
         <tr>
             <th>First Name</th>
@@ -25,8 +27,13 @@
             <td>$manager.getSalary()</td>
             <td>$manager.getDepartment().getTitle()</td>
             <td>$manager.getBudget()</td>
+            <td>    <form method="post" action="/managers/$manager.getId()/delete">
+                <input type="submit" value="delete"/>
+            </form></td>
         </tr>
         #end
 
     </table>
+
+
 </div>
